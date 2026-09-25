@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineHub - Movies & Web Series</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding-bottom: 50px;
+        }
+        header {
+            background: #1e293b;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #334155;
+        }
+        header h1 {
+            color: #38bdf8;
+            font-size: 22px;
+        }
+        .search-box {
+            padding: 8px 12px;
+            width: 50%;
+            max-width: 300px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            background: #334155;
+            color: white;
+        }
+        .container {
+            padding: 20px;
+        }
+        h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-left: 4px solid #38bdf8;
+            padding-left: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+        }
+        .card {
+            background: #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .card:active {
+            transform: scale(0.95);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-info {
+            padding: 10px;
+        }
+        .card-info h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-group {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+        }
+        .btn {
+            flex: 1;
+            padding: 6px;
+            font-size: 11px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-watch {
+            background: #0284c7;
+            color: white;
+        }
+        .btn-download {
+            background: #16a34a;
+            color: white;
+        }
+        /* Modal Video Player */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        .modal video {
+            width: 90%;
+            max-width: 800px;
+            max-height: 70vh;
+            background: black;
+        }
+        .close-btn {
+            margin-top: 15px;
+            background: #ef4444;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎬 CineHub</h1>
+        <input type="text" class="search-box" placeholder="Search movies..." id="searchInput">
+    </header>
+
+    <div class="container">
+        <h2>Trending Movies & Web Series</h2>
+        <div class="grid" id="movieGrid">
+            <!-- Movie Card 1 -->
+            <div class="card">
+                <img src="https://via.placeholder.com/150" alt="Poster">
+                <div class="card-info">
+                    <h3>Sample Movie 2026</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-watch" onclick="openPlayer('https://www.w3schools.com/html/mov_bbb.mp4')">Watch</button>
+                        <a href="https://www.w3schools.com/html/mov_bbb.mp4" download class="btn btn-download">Download</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Aap aur cards yahan add kar sakte hain -->
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="modal" id="videoModal">
+        <video id="player" controls controlsList="nodownload">
+            <source src="" id="videoSource" type="video/mp4">
+            Aapka browser video support nahi karta.
+        </video>
+        <button class="close-btn" onclick="closePlayer()">Close Player</button>
+    </div>
+
+    <script>
+        function openPlayer(videoUrl) {
+            const modal = document.getElementById('videoModal');
+            const player = document.getElementById('player');
+            const source = document.getElementById('videoSource');
+            
+            source.src = videoUrl;
+            modal.style.display = 'flex';
+            player.load();
+            player.play();
+        }
+
+        function closePlayer() {
+            const modal = document.getElementById('videoModal');
+            const player = document.getElementById('player');
+            
+            player.pause();
+            modal.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
